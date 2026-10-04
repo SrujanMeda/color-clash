@@ -1,0 +1,13 @@
+{
+  "name": "color-clash",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install && cd Client && npm install && cd ../Server && npm install",
+    "dev": "concurrently -n server,client -c blue,green \"npm run dev --prefix Server\" \"npm run dev --prefix Client\"",
+    "build": "npm run build --prefix Client",
+    "start": "npm start --prefix Server"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
