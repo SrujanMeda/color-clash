@@ -49,9 +49,9 @@ export function colorDistance(a, b) {
   return Math.hypot(l1 - l2, a1 - a2, b1 - b2);
 }
 
-// 100 for a perfect match, decaying with perceptual distance (CIE76 delta E).
+// 10 for a perfect match, decaying with perceptual distance (CIE76 delta E).
 export function scoreGuess(target, guess, difficulty = 'medium') {
   const { decay } = DIFFICULTIES[difficulty] ?? DIFFICULTIES.medium;
   const d = colorDistance(target, guess);
-  return Math.round(100 * Math.exp(-d / decay) * 10) / 10;
+  return Math.round(10 * Math.exp(-d / decay) * 100) / 100;
 }

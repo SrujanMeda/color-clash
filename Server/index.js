@@ -74,6 +74,7 @@ function viewFor(room, playerId) {
     settings: room.settings,
     remainingMs: Math.max(0, room.endsAt - Date.now()),
     target: showTarget ? room.targets[room.round] : null,
+    targets: showResults || room.phase === 'final' ? room.targets.slice(0, room.round + 1) : undefined,
     players: [...room.players.values()].map((p) => ({
       id: p.id,
       name: p.name,
@@ -81,6 +82,7 @@ function viewFor(room, playerId) {
       locked: p.locked,
       guess: showResults ? p.guess : undefined,
       roundScore: showResults ? p.roundScore : undefined,
+      rounds: showResults || room.phase === 'final' ? p.rounds : undefined,
     })),
   };
 }
@@ -116,7 +118,8 @@ function endGuess(room) {
   const target = room.targets[room.round];
   for (const p of room.players.values()) {
     p.roundScore = scoreGuess(target, p.guess, room.settings.difficulty);
-    p.score = Math.round((p.score + p.roundScore) * 10) / 10;
+    p.score = Math.round((p.score + p.roundScore) * 100) / 100;
+    p.rounds.push({ guess: p.guess, score: p.roundScore });
   }
   setPhase(room, 'result', RESULT_MS, () => nextRound(room));
 }
@@ -134,7 +137,10 @@ function startGame(room) {
   room.round = 0;
   const { rounds, difficulty, customColors } = room.settings;
   room.targets = Array.from({ length: rounds }, (_, i) => customColors[i] ?? randomColor(difficulty));
-  for (const p of room.players.values()) p.score = 0;
+  for (const p of room.players.values()) {
+    p.score = 0;
+    p.rounds = [];
+  }
   startRound(room);
 }
 
@@ -180,6 +186,7 @@ function joinRoom(socket, room, name) {
     id: socket.id,
     name: cleanName(name),
     score: 0,
+    rounds: [],
     guess: { ...DEFAULT_GUESS },
     locked: false,
     roundScore: 0,

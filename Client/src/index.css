@@ -112,12 +112,6 @@ body {
   cursor: pointer;
 }
 
-.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; text-align: center; }
-.compare p { margin: 8px 0 0; }
-
-.guesses { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
-.chip { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; background: #1c1c1c; padding: 4px 10px; border-radius: 999px; }
-.dot { width: 14px; height: 14px; border-radius: 50%; border: 1px solid #444; }
 
 .btn.small { padding: 6px 12px; font-size: 0.85rem; border-radius: 8px; }
 .btn.danger { color: #ff6b6b; border-color: #5a2a2a; }
@@ -139,3 +133,15 @@ select.input { padding: 8px 10px; }
 .custom input[type='color'] { width: 40px; height: 36px; padding: 0; border: 1px solid #444; border-radius: 8px; background: none; cursor: pointer; }
 
 .hostbar { position: fixed; top: 12px; right: 12px; z-index: 10; }
+
+.final { justify-content: flex-start; }
+.title.left, .muted.left { text-align: left; }
+.result-head { display: flex; align-items: center; gap: 8px; }
+.result-head .pname { flex: 0 1 auto; font-weight: 700; font-size: 1.1rem; }
+.result-head .total { margin-left: auto; font-weight: 700; font-size: 1.1rem; }
+.result-head .total small { color: #888; font-weight: 500; }
+.pill { background: #fff; color: #111; font-size: 0.75rem; font-weight: 600; padding: 3px 10px; border-radius: 999px; }
+.tiles { display: flex; flex-wrap: wrap; gap: 8px; }
+.tile { flex: 0 0 calc((100% - 32px) / 5); aspect-ratio: 1; border-radius: 6px; padding: 5px 6px; font-weight: 700; font-size: 0.85rem; }
+.tile.latest { outline: 2px solid #fff; outline-offset: 2px; }
+.link { background: none; border: 0; color: #fff; font-size: 1rem; font-weight: 600; cursor: pointer; padding: 8px; }
